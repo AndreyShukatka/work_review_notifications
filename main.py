@@ -6,14 +6,31 @@ import requests
 from dotenv import load_dotenv
 
 
-def connect_bot(telegram_token):
+def send_message(telegram_token, my_id, json_response):
     bot = telegram.Bot(token=telegram_token)
-    update = bot.get_updates()
-    bot.send_message(text='Hi', chat_id=update[0]['message']['chat']['id'])
-    print(update[0])
+    lesson_title = json_response['new_attempts'][0]['lesson_title']
+    lesson_url = json_response['new_attempts'][0]['lesson_url']
+    if json_response['new_attempts'][0]['is_negative'] == True:
+        bot.send_message(
+            text=f'У вас проверили работу "{lesson_title}"\n{lesson_url}\nК сожалению в работе нашлись ошибки',
+            chat_id=my_id
+        )
+    else:
+        bot.send_message(
+            text=f'У вас проверили работу "{lesson_title}"'
+                 f'\n\n'
+                 f'Преподавателю всё понравилось, можно приступать к следующему уроку!',
+            chat_id=my_id
+        )
 
 
-def request_devman(url, devman_token):
+def main():
+    load_dotenv()
+    logging.basicConfig(filename="sample.log", level=logging.INFO)
+    devman_token = os.environ['DEVMAN_TOKEN']
+    my_id = os.environ['MY_ID']
+    telegram_token = os.environ['TELEGRAM_TOKEN']
+    url = 'https://dvmn.org/api/long_polling/'
     headers = {
         'Authorization': devman_token
     }
@@ -26,6 +43,8 @@ def request_devman(url, devman_token):
                 timestamp = json_response['timestamp_to_request']
             else:
                 timestamp = json_response['last_attempt_timestamp']
+                print(json_response)
+                send_message(telegram_token, my_id, json_response)
             params = {
                 'timestamp': str(timestamp)
             }
@@ -33,16 +52,6 @@ def request_devman(url, devman_token):
             continue
         except requests.exceptions.ConnectionError:
             continue
-
-
-def main():
-    load_dotenv()
-    logging.basicConfig(filename="sample.log", level=logging.INFO)
-    devman_token = os.environ['DEVMAN_TOKEN']
-    telegram_token = os.environ['TELEGRAM_TOKEN']
-    url = 'https://dvmn.org/api/long_polling/'
-    # request_devman(url, devman_token)
-    connect_bot(telegram_token)
 
 
 if __name__ == '__main__':
