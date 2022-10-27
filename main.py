@@ -12,8 +12,11 @@ def main():
     }
     url = 'https://dvmn.org/api/long_polling/'
     while True:
-        response = requests.get(url, headers=headers)
-        print(response.json())
+        try:
+            response = requests.get(url, headers=headers, timeout=5)
+            print(response.json())
+        except requests.exceptions.ReadTimeout:
+            continue
 
 if __name__ == '__main__':
     main()
