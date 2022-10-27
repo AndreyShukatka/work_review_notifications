@@ -10,7 +10,7 @@ def send_message(telegram_token, my_id, json_response):
     bot = telegram.Bot(token=telegram_token)
     lesson_title = json_response['new_attempts'][0]['lesson_title']
     lesson_url = json_response['new_attempts'][0]['lesson_url']
-    if json_response['new_attempts'][0]['is_negative'] == True:
+    if json_response['new_attempts'][0]['is_negative']:
         bot.send_message(
             text=f'У вас проверили работу "{lesson_title}"\n{lesson_url}\nК сожалению в работе нашлись ошибки',
             chat_id=my_id
