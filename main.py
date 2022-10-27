@@ -6,7 +6,7 @@ import requests
 from dotenv import load_dotenv
 
 
-def send_message(telegram_token, my_id, json_response):
+def send_message_bot(telegram_token, my_id, json_response):
     bot = telegram.Bot(token=telegram_token)
     lesson_title = json_response['new_attempts'][0]['lesson_title']
     lesson_url = json_response['new_attempts'][0]['lesson_url']
@@ -26,7 +26,6 @@ def send_message(telegram_token, my_id, json_response):
 
 def main():
     load_dotenv()
-    logging.basicConfig(filename="sample.log", level=logging.INFO)
     devman_token = os.environ['DEVMAN_TOKEN']
     my_id = os.environ['MY_ID']
     telegram_token = os.environ['TELEGRAM_TOKEN']
@@ -44,7 +43,7 @@ def main():
             else:
                 timestamp = json_response['last_attempt_timestamp']
                 print(json_response)
-                send_message(telegram_token, my_id, json_response)
+                send_message_bot(telegram_token, my_id, json_response)
             params = {
                 'timestamp': str(timestamp)
             }
