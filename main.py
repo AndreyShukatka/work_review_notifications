@@ -17,6 +17,8 @@ def main():
             print(response.json())
         except requests.exceptions.ReadTimeout:
             continue
+        except ConnectionError:
+            continue
 
 if __name__ == '__main__':
     main()
