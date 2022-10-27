@@ -1,16 +1,16 @@
-# This is a sample Python script.
+import os
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+import requests
+from dotenv import load_dotenv
 
 
-# Press the green button in the gutter to run the script.
+def main():
+    load_dotenv()
+    devman_token = os.environ['DEVMAN_TOKEN']
+    headers = {'Authorization': devman_token}
+    url = 'https://dvmn.org/api/user_reviews/'
+    response = requests.get(url, headers=headers)
+    print(response.text)
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()
