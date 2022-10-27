@@ -1,11 +1,19 @@
 import os
 import logging
 
+import telegram
 import requests
 from dotenv import load_dotenv
 
 
-def devman_request(url, devman_token):
+def connect_bot(telegram_token):
+    bot = telegram.Bot(token=telegram_token)
+    update = bot.get_updates()
+    bot.send_message(text='Hi', chat_id=update[0]['message']['chat']['id'])
+    print(update[0])
+
+
+def request_devman(url, devman_token):
     headers = {
         'Authorization': devman_token
     }
@@ -21,7 +29,6 @@ def devman_request(url, devman_token):
             params = {
                 'timestamp': str(timestamp)
             }
-            print(response.json())
         except requests.exceptions.ReadTimeout:
             continue
         except requests.exceptions.ConnectionError:
@@ -32,8 +39,10 @@ def main():
     load_dotenv()
     logging.basicConfig(filename="sample.log", level=logging.INFO)
     devman_token = os.environ['DEVMAN_TOKEN']
+    telegram_token = os.environ['TELEGRAM_TOKEN']
     url = 'https://dvmn.org/api/long_polling/'
-    devman_request(url, devman_token)
+    # request_devman(url, devman_token)
+    connect_bot(telegram_token)
 
 
 if __name__ == '__main__':
