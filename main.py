@@ -11,8 +11,9 @@ def main():
         'Authorization': devman_token
     }
     url = 'https://dvmn.org/api/long_polling/'
-    response = requests.get(url, headers=headers)
-    print(response.text)
+    while True:
+        response = requests.get(url, headers=headers)
+        print(response.json())
 
 if __name__ == '__main__':
     main()
