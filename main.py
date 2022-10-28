@@ -1,6 +1,7 @@
 import os
 from time import sleep
 import textwrap
+import logging
 
 import telegram
 import requests
@@ -46,6 +47,7 @@ def main():
     seconds = 20
     while True:
         try:
+            logging.warning('Бот запущен!')
             response = requests.get(url, headers=headers, params=params)
             response.raise_for_status()
             review_answer = response.json()
@@ -57,6 +59,7 @@ def main():
             params = {
                 'timestamp': str(timestamp)
             }
+
         except requests.exceptions.ReadTimeout:
             continue
         except requests.exceptions.ConnectionError:
