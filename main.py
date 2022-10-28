@@ -39,13 +39,13 @@ def main():
         try:
             response = requests.get(url, headers=headers, params=params)
             response.raise_for_status()
-            json_response = response.json()
-            if json_response['status'] == 'timeout':
-                timestamp = json_response['timestamp_to_request']
+            review_answer = response.json()
+            if review_answer['status'] == 'timeout':
+                timestamp = review_answer['timestamp_to_request']
             else:
-                timestamp = json_response['last_attempt_timestamp']
-                print(json_response)
-                send_message_bot(telegram_token, my_tgm_id, json_response)
+                timestamp = review_answer['last_attempt_timestamp']
+                print(review_answer)
+                send_message_bot(telegram_token, my_tgm_id, review_answer)
             params = {
                 'timestamp': str(timestamp)
             }
