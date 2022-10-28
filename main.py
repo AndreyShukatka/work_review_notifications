@@ -1,5 +1,6 @@
 import os
 from time import sleep
+import textwrap
 
 import telegram
 import requests
@@ -12,22 +13,22 @@ def send_message_bot(telegram_token, tgm_id, json_response):
     lesson_url = json_response['new_attempts'][0]['lesson_url']
     if json_response['new_attempts'][0]['is_negative']:
         bot.send_message(
-            text=f'''
-У вас проверили работу "{lesson_title}"
-{lesson_url}
+            text=textwrap.dedent(
+                f'''У вас проверили работу "{lesson_title}"
+                {lesson_url}
  
-К сожалению в работе нашлись ошибки
-            ''',
+                К сожалению в работе нашлись ошибки'''
+            ),
             chat_id=tgm_id
         )
     else:
         bot.send_message(
-            text=f'''
-У вас проверили работу "{lesson_title}"'
+            text=textwrap.dedent(
+                f'''У вас проверили работу "{lesson_title}"'
 
-Преподавателю всё понравилось,
-можно приступать к следующему уроку!
-            ''',
+                Преподавателю всё понравилось,
+                можно приступать к следующему уроку!'''
+            ),
             chat_id=tgm_id
         )
 
