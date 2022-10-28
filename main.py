@@ -44,7 +44,6 @@ def main():
                 timestamp = review_answer['timestamp_to_request']
             else:
                 timestamp = review_answer['last_attempt_timestamp']
-                print(review_answer)
                 send_message_bot(telegram_token, my_tgm_id, review_answer)
             params = {
                 'timestamp': str(timestamp)
