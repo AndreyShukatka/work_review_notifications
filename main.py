@@ -5,7 +5,7 @@ import requests
 from dotenv import load_dotenv
 
 
-def send_message_bot(telegram_token, my_id, json_response):
+def send_message_bot(telegram_token, my_tgm_id, json_response):
     bot = telegram.Bot(token=telegram_token)
     lesson_title = json_response['new_attempts'][0]['lesson_title']
     lesson_url = json_response['new_attempts'][0]['lesson_url']
@@ -13,7 +13,7 @@ def send_message_bot(telegram_token, my_id, json_response):
         bot.send_message(
             text=f'У вас проверили работу "{lesson_title}"\n'
                  f'{lesson_url}\nК сожалению в работе нашлись ошибки',
-            chat_id=my_id
+            chat_id=my_tgm_id
         )
     else:
         bot.send_message(
@@ -28,7 +28,7 @@ def send_message_bot(telegram_token, my_id, json_response):
 def main():
     load_dotenv()
     devman_token = os.environ['DEVMAN_TOKEN']
-    my_id = os.environ['MY_ID']
+    my_tgm_id = os.environ['MY_ID']
     telegram_token = os.environ['TELEGRAM_TOKEN']
     url = 'https://dvmn.org/api/long_polling/'
     headers = {
@@ -44,7 +44,7 @@ def main():
             else:
                 timestamp = json_response['last_attempt_timestamp']
                 print(json_response)
-                send_message_bot(telegram_token, my_id, json_response)
+                send_message_bot(telegram_token, my_tgm_id, json_response)
             params = {
                 'timestamp': str(timestamp)
             }
