@@ -25,7 +25,7 @@ def send_message_bot(telegram_token, my_tgm_id, json_response):
             text=f'''
 У вас проверили работу "{lesson_title}"'
 
-Преподавателю всё понравилось, '
+Преподавателю всё понравилось,
 можно приступать к следующему уроку!
             ''',
             chat_id=my_tgm_id
