@@ -38,6 +38,7 @@ def main():
     while True:
         try:
             response = requests.get(url, headers=headers, params=params)
+            response.raise_for_status()
             json_response = response.json()
             if json_response['status'] == 'timeout':
                 timestamp = json_response['timestamp_to_request']
