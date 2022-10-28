@@ -1,4 +1,5 @@
 import os
+from time import sleep
 
 import telegram
 import requests
@@ -21,7 +22,7 @@ def send_message_bot(telegram_token, my_tgm_id, json_response):
                  f'\n\n'
                  f'Преподавателю всё понравилось, '
                  f'можно приступать к следующему уроку!',
-            chat_id=my_id
+            chat_id=my_tgm_id
         )
 
 
@@ -35,6 +36,7 @@ def main():
         'Authorization': devman_token
     }
     params = {}
+    seconds = 20
     while True:
         try:
             response = requests.get(url, headers=headers, params=params)
@@ -51,6 +53,7 @@ def main():
         except requests.exceptions.ReadTimeout:
             continue
         except requests.exceptions.ConnectionError:
+            sleep(20)
             continue
 
 
