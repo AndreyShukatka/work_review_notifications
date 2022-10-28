@@ -12,16 +12,22 @@ def send_message_bot(telegram_token, my_tgm_id, json_response):
     lesson_url = json_response['new_attempts'][0]['lesson_url']
     if json_response['new_attempts'][0]['is_negative']:
         bot.send_message(
-            text=f'У вас проверили работу "{lesson_title}"\n'
-                 f'{lesson_url}\nК сожалению в работе нашлись ошибки',
+            text=f'''
+У вас проверили работу "{lesson_title}"
+{lesson_url}
+ 
+К сожалению в работе нашлись ошибки
+            ''',
             chat_id=my_tgm_id
         )
     else:
         bot.send_message(
-            text=f'У вас проверили работу "{lesson_title}"'
-                 f'\n\n'
-                 f'Преподавателю всё понравилось, '
-                 f'можно приступать к следующему уроку!',
+            text=f'''
+У вас проверили работу "{lesson_title}"'
+
+Преподавателю всё понравилось, '
+можно приступать к следующему уроку!
+            ''',
             chat_id=my_tgm_id
         )
 
