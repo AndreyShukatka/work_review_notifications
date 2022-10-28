@@ -59,7 +59,7 @@ def main():
         except requests.exceptions.ReadTimeout:
             continue
         except requests.exceptions.ConnectionError:
-            sleep(20)
+            sleep(seconds)
             continue
 
 
