@@ -24,7 +24,7 @@ pip install -r requirements.txt
 ```
 DEVMAN_TOKEN = Тут ваш токен с девмана
 TELEGRAM_TOKEN = Тут ваш токен с телеграма
-MY_TGM_ID = Тут ваш ID в телеграме
+TGM_ID = Тут ваш ID в телеграме
 ```
 
 - После окончания всех настроек запускаем скрипт:
