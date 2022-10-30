@@ -2,11 +2,11 @@ import os
 from time import sleep
 import textwrap
 import logging
-from logging.handlers import RotatingFileHandler
 
 import telegram
 import requests
 from dotenv import load_dotenv
+
 
 class TelegramLogsHandler(logging.Handler):
 
@@ -58,7 +58,7 @@ def main():
     }
     params = {}
     seconds = 20
-    logger = logging.getLogger('Logger')
+    logger = logging.getLogger('tg_Logger')
     logger.setLevel(logging.INFO)
     logger.addHandler(TelegramLogsHandler(telegram_token, tgm_id))
     logger.info('Бот запущен!')
@@ -84,10 +84,10 @@ def main():
             sleep(seconds)
             continue
         except Exception:
-            logger.exception("Бот Упал")
+            logger.warning("Бот упал с ошибкой:")
+            logger.exception('')
             continue
 
 
 if __name__ == '__main__':
     main()
-
