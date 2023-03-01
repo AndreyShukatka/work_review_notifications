@@ -15,6 +15,24 @@ python -m venv env
 pip install -r requirements.txt
 ```
 
+# Установка и запуск через Docker
+- Установить докер
+```shell
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+```
+- Установить контейнер
+```shell
+docker pull slon1k/work_review_notifications
+```
+- Запустить установленный контейнер с переменными окружения
+```shell
+sudo docker run -d --restart always 
+-e DEVMAN_TOKEN='Ваш токен Devman' 
+-e TELEGRAM_TOKEN='Ваш токен телеграмма' 
+-e TGM_ID='Ваш ID телеграмма' slon1k/work_review_notifications
+```
+
 # Для запуска необходимо:
 - Создать бота и получить токен, инструкция по ссылке: [Кликни тут](https://smmplanner.com/blog/otlozhennyj-posting-v-telegram/).
 - Найти токен для [Devman](https://dvmn.org) по [этой ссылке](https://dvmn.org/api/docs/)
