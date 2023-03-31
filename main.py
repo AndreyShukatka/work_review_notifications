@@ -28,10 +28,12 @@ def send_message_bot(telegram_token, tgm_id, review_answer):
     if review_answer['new_attempts'][0]['is_negative']:
         bot.send_message(
             text=textwrap.dedent(
-                f'''У вас проверили работу "{lesson_title}"
+                f'''
+                У вас проверили работу "{lesson_title}"
                 {lesson_url}
  
-                К сожалению в работе нашлись ошибки'''
+                К сожалению в работе нашлись ошибки
+                '''
             ),
             chat_id=tgm_id
         )
