@@ -27,7 +27,7 @@ docker pull slon1k/work_review_notifications
 ```
 - Запустить установленный контейнер с переменными окружения
 ```shell
-sudo docker run -d --restart always 
+sudo docker run -d --restart always work_review_notifications
 -e DEVMAN_TOKEN='Ваш токен Devman' 
 -e TELEGRAM_TOKEN='Ваш токен телеграмма' 
 -e TGM_ID='Ваш ID телеграмма' slon1k/work_review_notifications
